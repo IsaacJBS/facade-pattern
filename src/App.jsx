@@ -4,14 +4,14 @@ import "./App.css";
 import getFetch from "./utils/getFetch";
 
 function App() {
-  const [responseData, setResponseData] = useState([]);
+  const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  async function getResponse() {
+  async function getCharacters() {
     try {
       setLoading(true);
       const { results } = await getFetch("people/");
-      setResponseData(results);
+      setCharacters(results);
     } catch (error) {
       throw new Error(error);
     } finally {
@@ -20,15 +20,15 @@ function App() {
   }
 
   useEffect(() => {
-    getResponse();
+    getCharacters();
   }, []);
 
   return (
     <div className="App">
       <ul>
         {loading && <p>Carregando...</p>}
-        {responseData &&
-          responseData.map((character) => (
+        {characters &&
+          characters.map((character) => (
             <li key={character.name}>{character.name}</li>
           ))}
       </ul>
